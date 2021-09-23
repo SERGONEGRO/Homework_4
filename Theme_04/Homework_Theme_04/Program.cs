@@ -104,30 +104,55 @@ namespace Homework_Theme_04
             // Справка: https://ru.wikipedia.org/wiki/Треугольник_Паскаля
 
 
-            /*---------РЕШЕНИЕ------------*/
+                                    /*---------РЕШЕНИЕ------------*/
             int N = rand.Next(25);
             int[][] jaggedArray = new int[N][];
+            string printString="";
+            int centerX, y;
 
             Console.WriteLine($"N = {N}\n");
             for(int i = 0;i<N;i++)
             {
+                //обнуляется строка печати
+                printString = "";
+
                 jaggedArray[i] = new int[i + 1];              //задание длины подмассива
 
-                if (i == 0) { jaggedArray[i][0] = 1; Console.Write($"{jaggedArray[i][0]} \n"); continue; }   //если первый подмассив, то его элемент = 1
+                //если первый подмассив, то его единственный элемент = 1, печать по центру и пропуск итерации
+                if (i == 0) {jaggedArray[i][0] = 1; printString = jaggedArray[i][0].ToString(); CenterPrint(printString); continue; }  
 
                 for (int j =0; j<jaggedArray[i].Length;j++)
                 {
                     
-                    if (j == 0) { jaggedArray[i][j] = 1; Console.Write($"{jaggedArray[i][j]} "); continue; }                        //если элементы крайние, они =1
-                    if (j == jaggedArray[i].Length - 1) { jaggedArray[i][j] = 1; Console.Write($"{jaggedArray[i][j]} "); continue; }
 
-                    jaggedArray[i][j] = jaggedArray[i - 1][j - 1] + jaggedArray[i - 1][j]; //во всех остальных случаях элемент вычисляется согласно правилу
-
-                    Console.Write($"{jaggedArray[i][j]} ");
+                    //если элемент первый, то он =1, Добавляется в строку для печати
+                    if (j == 0) { jaggedArray[i][j] = 1; printString = jaggedArray[i][j].ToString() + "  "; }
+                    //если элемент последний, то он =1, Добавляется в строку для печати
+                    else if (j == jaggedArray[i].Length - 1) { jaggedArray[i][j] = 1; printString = printString + jaggedArray[i][j].ToString(); }
+                    else
+                    {
+                        //во всех остальных случаях элемент вычисляется согласно правилу
+                        jaggedArray[i][j] = jaggedArray[i - 1][j - 1] + jaggedArray[i - 1][j];
+                        //...и добавляется в строку для печати
+                        printString = printString + jaggedArray[i][j].ToString() + "  ";
+                    }
+                 
                 }
-                Console.WriteLine();
+                //печать строки по центру
+                CenterPrint(printString);
+                //Console.WriteLine();
             }
 
+
+            void CenterPrint(string sometext)
+            {
+                y = Console.CursorTop + 1;
+                centerX = (Console.WindowWidth / 2) - (sometext.Length / 2);
+                Console.SetCursorPosition(centerX, y);
+                Console.WriteLine(sometext);
+
+
+            }
             // 
             // * Задание 3.1
             // Заказчику требуется приложение позволяющщее умножать математическую матрицу на число
