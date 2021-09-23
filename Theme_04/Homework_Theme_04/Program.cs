@@ -42,6 +42,41 @@ namespace Homework_Theme_04
             // Месяцев с положительной прибылью: 10
 
 
+            ///*----------РЕШЕНИЕ------------*/
+            Random rand = new Random();    //генератор чисел
+
+            //int[] income = new int[12] ;    //задание массивов
+            //int[] expens = new int[12] ;
+            //int[] profit = new int[12];     //прибыль
+            //int goodProfit=0;               //Количество месяцев с положительной прибылью
+            //int minValue;
+            //int minIndex;
+
+            ////Заполнение и вывод на экран массивов дохода, расхода, прибыли
+            //Console.WriteLine("Месяц\t Доход,тыс.руб.\tРасход,тыс.руб.\tПрибыль,тыс.руб");
+            //for (int i=0; i<12;i++)
+            //{
+            //    income[i] = rand.Next(10, 100) * 1000;
+            //    expens[i] = rand.Next(10, 90) * 1000;
+            //    profit[i] = income[i] - expens[i];
+            //    if (profit[i] > 0) goodProfit++; 
+
+            //    Console.WriteLine($"{i+1} \t{income[i]} \t\t{expens[i]} \t\t{profit[i]}");
+            //}
+            //Console.WriteLine($"\nКоличество месяцев с положительной прибылью: {goodProfit}");
+
+            ////вычисление 3х месяцев с самой низкой прибылью
+            //Console.WriteLine($"\n3 месяца с худшей прибылью: ");
+            //for (int j = 0; j < 3; j++)
+            //{
+            //    minValue = profit.Min();
+            //    minIndex = profit.ToList().IndexOf(minValue);
+            //    profit[minIndex] = Int32.MaxValue;                        //после того, как выявили минимальный элемент, примсваиваем ему максимальное значение Int32
+            //    Console.WriteLine($"\n {minIndex + 1}\t {minValue}");     //чтобы он точно не попал в следующую итерацию.
+            //}
+            //Console.ReadKey();
+
+
             // * Задание 2
             // Заказчику требуется приложение строящее первых N строк треугольника паскаля. N < 25
             // 
@@ -68,6 +103,30 @@ namespace Homework_Theme_04
             // 
             // Справка: https://ru.wikipedia.org/wiki/Треугольник_Паскаля
 
+
+            /*---------РЕШЕНИЕ------------*/
+            int N = rand.Next(25);
+            int[][] jaggedArray = new int[N][];
+
+            Console.WriteLine($"N = {N}\n");
+            for(int i = 0;i<N;i++)
+            {
+                jaggedArray[i] = new int[i + 1];              //задание длины подмассива
+
+                if (i == 0) { jaggedArray[i][0] = 1; Console.Write($"{jaggedArray[i][0]} \n"); continue; }   //если первый подмассив, то его элемент = 1
+
+                for (int j =0; j<jaggedArray[i].Length;j++)
+                {
+                    
+                    if (j == 0) { jaggedArray[i][j] = 1; Console.Write($"{jaggedArray[i][j]} "); continue; }                        //если элементы крайние, они =1
+                    if (j == jaggedArray[i].Length - 1) { jaggedArray[i][j] = 1; Console.Write($"{jaggedArray[i][j]} "); continue; }
+
+                    jaggedArray[i][j] = jaggedArray[i - 1][j - 1] + jaggedArray[i - 1][j]; //во всех остальных случаях элемент вычисляется согласно правилу
+
+                    Console.Write($"{jaggedArray[i][j]} ");
+                }
+                Console.WriteLine();
+            }
 
             // 
             // * Задание 3.1
