@@ -74,6 +74,16 @@ namespace Homework_Theme4_task3
                 }
                 return matrixX;
             }
+
+            int ChekNumber(string s)
+            {
+                do
+                {
+                    
+                    if()
+                }
+                w
+            }
         }
     }
 }

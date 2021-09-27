@@ -8,6 +8,7 @@ namespace Homework_Theme4_task2
 {
     class Program
     {
+        public const int cellWidth = 5;
         static void Main(string[] args)
         {
             // * Задание 2
@@ -38,59 +39,59 @@ namespace Homework_Theme4_task2
 
 
             /*---------РЕШЕНИЕ------------*/
-            int N = rand.Next(5);
-            int cellWidth = 5;
-            int col = cellWidth*N;
-             
+            
             Random rand = new Random();
-                               //задаем N рандомно
-            int[][] jaggedArray = new int[N][];      //определяем зубчатый массив из N подмассивов
-            string printString = "";                   //определяем строку, которая будет выводится на экран
-            int centerX, y;                          //координаты курсора
+            int row = rand.Next(10);
+            int[,] triangle = new int [row,row];
+            const int cellWidth = 5;
 
-            Console.WriteLine($"N = {N}\n");
+            Console.WriteLine($"N={row}\n");
+            FillTriangle();
 
-            for (int i = 0; i < N; i++)                   //для каждого подмассива
+            int col = cellWidth*row;
+            
+            for(int i = 0; i<row;i++)
             {
-                
-                //обнуляется строка печати
-                printString = "";
-
-                jaggedArray[i] = new int[i + 1];     //задание длины подмассива
-
-                //если первый подмассив, то его единственный элемент = 1, печать по центру и пропуск итерации
-                if (i == 0) { jaggedArray[i][0] = 1; printString = jaggedArray[i][0].ToString(); CenterPrint(printString); continue; }
-
-                //Если массив не первый:
-                for (int j = 0; j < jaggedArray[i].Length; j++)
+                for (int j = 0;j<=i;j++)
                 {
-                    Console.SetCursorPosition(col,i);
-                    //если элемент первый, то он =1, Добавляется в строку для печати
-                    if (j == 0) { jaggedArray[i][j] = 1; printString = jaggedArray[i][j].ToString() + "  "; }
-                    //если элемент последний, то он =1, Добавляется в строку для печати
-                    else if (j == jaggedArray[i].Length - 1) { jaggedArray[i][j] = 1; printString = printString + jaggedArray[i][j].ToString(); }
-                    else
-                    {
-                        //во всех остальных случаях элемент вычисляется согласно правилу
-                        jaggedArray[i][j] = jaggedArray[i - 1][j - 1] + jaggedArray[i - 1][j];
-                        //...и добавляется в строку для печати
-                        printString = printString + jaggedArray[i][j].ToString() + "  ";
-                    }
-
+                    Console.SetCursorPosition(col,i+1);
+                    if (triangle[i,j] != 0) Console.Write($"{triangle[i,j], cellWidth}");
+                    col+=cellWidth*2;
                 }
-                //печать строки по центру
-                CenterPrint(printString);
-            }
-
-            //Метод для печати строк по центру
-            void CenterPrint(string sometext)
-            {
-                y = Console.CursorTop + 1;
-                centerX = (Console.WindowWidth / 2) - (sometext.Length / 2);
-                Console.SetCursorPosition(centerX, y);
-                Console.WriteLine(sometext);
+                col = cellWidth*row-cellWidth*(i+1);
+                Console.WriteLine();
             }
             Console.ReadKey();
+
+
+            void FillTriangle()
+            {
+                for (int i = 0;i<row;i++)
+                {
+                    triangle[i,0]=1;
+                    triangle[i,i]=1;
+                }
+                
+                for (int i = 2; i<row;i++)
+                {
+                    for (int j =1;j<=i;j++)
+                    {
+                        triangle[i,j]=triangle[i-1,j-1]+triangle[i-1,j];
+                    }
+                }
+            }
+
+            void Print()
+            {
+                for (int i = 0; i<row;i++)
+                {
+                    for (int j = 0;j < row;j++)
+                    {
+                        if (triangle[i,j]!=0) Console.Write($"{triangle[i,j],cellWidth}");
+                    }
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
