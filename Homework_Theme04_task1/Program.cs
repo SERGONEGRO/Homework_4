@@ -48,16 +48,19 @@ namespace Homework_Theme_04
             int[] income = new int[12];    //задание массивов
             int[] expens = new int[12];
             int[] profit = new int[12];     //прибыль
+            int[] badprofit = new int[12];
             int goodProfit = 0;               //Количество месяцев с положительной прибылью
             int minValue;
             int minIndex;
+
+            int count = 3;              //кол-во месяцев с худшей прибылью, по умолчанию 3
 
             //Заполнение и вывод на экран массивов дохода, расхода, прибыли
             Console.WriteLine("Месяц\t Доход,тыс.руб.\tРасход,тыс.руб.\tПрибыль,тыс.руб");
             for (int i = 0; i < 12; i++)
             {
-                income[i] = rand.Next(10, 100) * 1000;
-                expens[i] = rand.Next(10, 90) * 1000;
+                income[i] = rand.Next(10, 15) * 100;
+                expens[i] = rand.Next(10, 15) * 100;
                 profit[i] = income[i] - expens[i];
                 if (profit[i] > 0) goodProfit++;
 
@@ -66,145 +69,29 @@ namespace Homework_Theme_04
             Console.WriteLine($"\nКоличество месяцев с положительной прибылью: {goodProfit}");
 
             //вычисление 3х месяцев с самой низкой прибылью
-            Console.WriteLine($"\n3 месяца с худшей прибылью: ");
-            for (int j = 0; j < 3; j++)
+            Console.WriteLine($"\n Месяцы с 3 худшими прибылями: ");
+
+            Array.Copy(profit,badprofit,12);    //делаем копию массива
+            Array.Sort(badprofit);
+
+            for (int j = 0; j < count; j++)
             {
-                minValue = profit.Min();
-                minIndex = profit.ToList().IndexOf(minValue);
-                profit[minIndex] = Int32.MaxValue;                        //после того, как выявили минимальный элемент, примсваиваем ему максимальное значение Int32
-                Console.WriteLine($"\n {minIndex + 1}\t {minValue}");     //чтобы он точно не попал в следующую итерацию.
-            }
-            Console.WriteLine();
-            Console.ReadKey();
-
-
-            
-
-
-            
-
-            //
-            // ** Задание 3.2
-            // Заказчику требуется приложение позволяющщее складывать и вычитать математические матрицы
-            // Справка https://ru.wikipedia.org/wiki/Матрица_(математика)
-            // Справка https://ru.wikipedia.org/wiki/Матрица_(математика)#Сложение_матриц
-            // Добавить возможность ввода количество строк и столцов матрицы.
-            // Матрицы заполняются автоматически
-            // Если по введённым пользователем данным действие произвести невозможно - сообщить об этом
-            //
-            // Пример
-            //  |  1  3  5  |   |  1  3  4  |   |  2   6   9  |
-            //  |  4  5  7  | + |  2  5  6  | = |  6  10  13  |
-            //  |  5  3  1  |   |  3  6  7  |   |  8   9   8  |
-            //  
-            //  
-            //  |  1  3  5  |   |  1  3  4  |   |  0   0   1  |
-            //  |  4  5  7  | - |  2  5  6  | = |  2   0   1  |
-            //  |  5  3  1  |   |  3  6  7  |   |  2  -3  -6  |
-            //
-
-                                    /*---------РЕШЕНИЕ-------------*/
-            Console.WriteLine("\n3.2 Сложение и вычитание матриц :");
-
-            Console.WriteLine("\tВведите количество строк матрицы :");
-            str = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("\tВведите количество столбцов матрицы :");
-            stolb = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("\n Матрица А:");          //определение и заполнение матриц 
-            int [,] matrixA = MatrixFill(str, stolb);
-            Console.WriteLine("\n Матрица B:");          
-            int[,] matrixB = MatrixFill(str, stolb);
-
-
-            Console.WriteLine("\n Сложенные матрицы: ");
-            for (int i = 0; i < str; i++)
-            {
-                for (int j = 0; j < stolb; j++)
+                for (int i=0; i < 12; i++)
                 {
-                    Console.Write($"{matrixA[i, j]+ matrixB[i, j]}\t");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("\n Вычитание матриц:");
-            for (int i = 0; i < str; i++)
-            {
-                for (int j = 0; j < stolb; j++)
-                {
-                    Console.Write($"{matrixA[i, j] - matrixB[i, j]}\t");
-                }
-                Console.WriteLine();
-            }
-
-
-            // *** Задание 3.3
-            // Заказчику требуется приложение позволяющщее перемножать математические матрицы
-            // Справка https://ru.wikipedia.org/wiki/Матрица_(математика)
-            // Справка https://ru.wikipedia.org/wiki/Матрица_(математика)#Умножение_матриц
-            // Добавить возможность ввода количество строк и столцов матрицы.
-            // Матрицы заполняются автоматически
-            // Если по введённым пользователем данным действие произвести нельзя - сообщить об этом
-            //  
-            //  |  1  3  5  |   |  1  3  4  |   | 22  48  57  |
-            //  |  4  5  7  | х |  2  5  6  | = | 35  79  95  |
-            //  |  5  3  1  |   |  3  6  7  |   | 14  36  45  |
-            //
-            //  
-            //                  | 4 |   
-            //  |  1  2  3  | х | 5 | = | 32 |
-            //                  | 6 |  
-            //
-                                  /*---------РЕШЕНИЕ-------------*/
-            Console.WriteLine("\n3.3 Умножение матрицы на матрицу :");
-
-            int strC, stolbC;                   //размерности матриц
-            int strD, stolbD;
-            int sum;                            //для суммирования элементов
-
-            do
-            {
-                //Ввод размерностей матриц и проверка условий
-                Console.WriteLine("\t--->Введите размерность матриц<----\n" +
-                    " Количество столбцов в матрице 1 должно совпадать с количеством строк в матрице 2\n");
-
-                Console.WriteLine("\tВведите количество строк первой матрицы :");
-                strC = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("\tВведите количество столбцов первой матрицы :");
-                stolbC = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine("\tВведите количество строк второй матрицы :");
-                strD = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("\tВведите количество столбцов второй матрицы :");
-                stolbD = Convert.ToInt32(Console.ReadLine());
-
-            } while (stolbC != strD);
-
-
-            Console.WriteLine("\n Матрица C:");          //определение и заполнение матриц 
-            int[,] matrixC = MatrixFill(strC, stolbC);
-            Console.WriteLine("\n Матрица D:");
-            int[,] matrixD = MatrixFill(strD, stolbD);
-            
-            Console.WriteLine("\n Произведение матриц:");          //Результирующая матрица
-            
-            for (int i = 0; i < strC; i++)
-            {
-                for (int j = 0; j < stolbD; j++)
-                {
-                    //встаем в каждую ячейку по очереди и считаем значение элемента согласно правилу
-                    sum = 0;                                        
-                    for(int z =0;z<stolbC;z++)           //stolbC=strD (по правилу)
+                    //если прибыль в числе худших, печатаем все месфцы с такой прибылью
+                    if (profit[i]==badprofit[j])
                     {
-                        //Операция вычисления матрицы , каждый элемент которой равен сумме произведений
-                        //элементов в соответствующей строке первого множителя и столбце второго
-                        sum = sum + matrixC[i, z] * matrixD[z, j];
-                    }
-                    Console.Write($"{sum}\t");
+                        Console.WriteLine($"{i + 1} \t\t{badprofit[j]}");
+                        profit[i]=int.MaxValue;                             //присваиваем максимально значение, чтобы вывести месяц из сравнения
+                    } 
+                    
                 }
-                Console.WriteLine();
+                //если несколько месяцев с одинаково плохой прибылью, то увеличиваем значение count
+                if (badprofit[j]==badprofit[j+1]) { count++;}               
+               
             }
             Console.ReadKey();
+
         }
     }
 }

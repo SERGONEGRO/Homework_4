@@ -32,22 +32,6 @@ namespace Homework_Theme4_task3
             int str, stolb;     //количество строк и стоблцов
             int num;            //число
 
-            //Метод для заполнения матрицы, общий для заданий 3.1-3.3
-            int[,] MatrixFill(int stroka, int stolbec)
-            {
-                int[,] matrixX = new int[stroka, stolbec];
-                for (int i = 0; i < stroka; i++)
-                {
-                    for (int j = 0; j < stolbec; j++)
-                    {
-                        matrixX[i, j] = rand.Next(5);
-                        Console.Write($"{matrixX[i, j]}\t");
-                    }
-                    Console.WriteLine();
-                }
-                return matrixX;
-            }
-
             Console.WriteLine("\n3.1 Перемножение матрицы на число :");
 
             Console.WriteLine("\nВведите количество строк матрицы :");
@@ -74,6 +58,22 @@ namespace Homework_Theme4_task3
                 Console.WriteLine();
             }
             Console.ReadKey();
+
+            //Метод для заполнения матрицы, общий для заданий 3.1-3.3
+            int[,] MatrixFill(int stroka, int stolbec)
+            {
+                int[,] matrixX = new int[stroka, stolbec];
+                for (int i = 0; i < stroka; i++)
+                {
+                    for (int j = 0; j < stolbec; j++)
+                    {
+                        matrixX[i, j] = rand.Next(5);
+                        Console.Write($"{matrixX[i, j]}\t");
+                    }
+                    Console.WriteLine();
+                }
+                return matrixX;
+            }
         }
     }
 }

@@ -38,8 +38,12 @@ namespace Homework_Theme4_task2
 
 
             /*---------РЕШЕНИЕ------------*/
+            int N = rand.Next(5);
+            int cellWidth = 5;
+            int col = cellWidth*N;
+             
             Random rand = new Random();
-            int N = rand.Next(15);                   //задаем N рандомно
+                               //задаем N рандомно
             int[][] jaggedArray = new int[N][];      //определяем зубчатый массив из N подмассивов
             string printString = "";                   //определяем строку, которая будет выводится на экран
             int centerX, y;                          //координаты курсора
@@ -48,6 +52,7 @@ namespace Homework_Theme4_task2
 
             for (int i = 0; i < N; i++)                   //для каждого подмассива
             {
+                
                 //обнуляется строка печати
                 printString = "";
 
@@ -59,6 +64,7 @@ namespace Homework_Theme4_task2
                 //Если массив не первый:
                 for (int j = 0; j < jaggedArray[i].Length; j++)
                 {
+                    Console.SetCursorPosition(col,i);
                     //если элемент первый, то он =1, Добавляется в строку для печати
                     if (j == 0) { jaggedArray[i][j] = 1; printString = jaggedArray[i][j].ToString() + "  "; }
                     //если элемент последний, то он =1, Добавляется в строку для печати
