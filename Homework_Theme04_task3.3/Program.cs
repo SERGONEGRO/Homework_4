@@ -42,15 +42,15 @@ namespace Homework_Theme04_task3._3
                 Console.WriteLine("\t--->Введите размерность матриц<----\n" +
                     " Количество столбцов в матрице 1 должно совпадать с количеством строк в матрице 2\n");
 
-                Console.WriteLine("\tВведите количество строк первой матрицы :");
-                strC = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("\tВведите количество столбцов первой матрицы :");
-                stolbC = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("\tВведите количество строк первой матрицы(0-9) :");
+                strC = EnterNumber();
+                Console.WriteLine("\tВведите количество столбцов первой матрицы(0-9) :");
+                stolbC = EnterNumber();
 
-                Console.WriteLine("\tВведите количество строк второй матрицы :");
-                strD = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("\tВведите количество столбцов второй матрицы :");
-                stolbD = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("\tВведите количество строк второй матрицы(0-9) :");
+                strD = EnterNumber();
+                Console.WriteLine("\tВведите количество столбцов второй матрицы(0-9) :");
+                stolbD = EnterNumber();
 
             } while (stolbC != strD);
 
@@ -94,6 +94,19 @@ namespace Homework_Theme04_task3._3
                     Console.WriteLine();
                 }
                 return matrixX;
+            }
+
+            //Ввод числа и его проверка 
+            int EnterNumber()
+            {
+                string s;
+                do
+                {
+                    s = Console.ReadLine();
+                }
+                while (s!="0"&& s!="1" && s!="2" && s!="3" && s!="4" && s!="5" && s!="6" && s!="7" && s!="8" && s!="9");
+
+                return Int32.Parse(s);
             }
         }
     }

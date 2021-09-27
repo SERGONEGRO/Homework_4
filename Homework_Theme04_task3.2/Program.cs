@@ -33,14 +33,14 @@ namespace Homework_Theme04_task3._2
             /*---------РЕШЕНИЕ-------------*/
 
             int str, stolb;     //количество строк и стоблцов
-            
+            Random rand = new Random();
             Console.WriteLine("\n3.2 Сложение и вычитание матриц :");
 
-            Console.WriteLine("\tВведите количество строк матрицы :");
-            str = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\tВведите количество строк матрицы (0-9):");
+            str = EnterNumber();
 
-            Console.WriteLine("\tВведите количество столбцов матрицы :");
-            stolb = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\tВведите количество столбцов матрицы (0-9):");
+            stolb = EnterNumber();
 
             Console.WriteLine("\n Матрица А:");          //определение и заполнение матриц 
             int[,] matrixA = MatrixFill(str, stolb);
@@ -83,6 +83,19 @@ namespace Homework_Theme04_task3._2
                     Console.WriteLine();
                 }
                 return matrixX;
+            }
+
+            //Ввод числа и его проверка 
+            int EnterNumber()
+            {
+                string s;
+                do
+                {
+                    s = Console.ReadLine();
+                }
+                while (s!="0"&& s!="1" && s!="2" && s!="3" && s!="4" && s!="5" && s!="6" && s!="7" && s!="8" && s!="9");
+
+                return Int32.Parse(s);
             }
         }
     }

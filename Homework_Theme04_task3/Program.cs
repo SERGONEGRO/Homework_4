@@ -34,14 +34,14 @@ namespace Homework_Theme4_task3
 
             Console.WriteLine("\n3.1 Перемножение матрицы на число :");
 
-            Console.WriteLine("\nВведите количество строк матрицы :");
-            str = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\nВведите количество строк матрицы(0-9) :");
+            str = EnterNumber();
 
-            Console.WriteLine("\nВведите количество столбцов матрицы :");
-            stolb = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\nВведите количество столбцов матрицы(0-9) :");
+            stolb = EnterNumber();
 
-            Console.WriteLine("\nВведите число :");
-            num = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\nВведите число(0-9) :");
+            num = EnterNumber();
 
             Console.WriteLine("\nИсходная матрица: ");
             int[,] matrix = new int[str, stolb];
@@ -75,14 +75,17 @@ namespace Homework_Theme4_task3
                 return matrixX;
             }
 
-            int ChekNumber(string s)
+            //Ввод числа и его проверка 
+            int EnterNumber()
             {
+                string s;
                 do
                 {
-                    
-                    if()
+                    s = Console.ReadLine();
                 }
-                w
+                while (s!="0"&& s!="1" && s!="2" && s!="3" && s!="4" && s!="5" && s!="6" && s!="7" && s!="8" && s!="9");
+
+                return Int32.Parse(s);
             }
         }
     }
