@@ -338,6 +338,7 @@ namespace Homework_Theme_04
                 }
                 Console.WriteLine();
             }
+            Console.ReadKey();
         }
     }
 }
