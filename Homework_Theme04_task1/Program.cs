@@ -59,8 +59,8 @@ namespace Homework_Theme_04
             Console.WriteLine("Месяц\t Доход,тыс.руб.\tРасход,тыс.руб.\tПрибыль,тыс.руб");
             for (int i = 0; i < 12; i++)
             {
-                income[i] = rand.Next(10, 15) * 100;
-                expens[i] = rand.Next(10, 15) * 100;
+                income[i] = rand.Next(0, 2) * 100;
+                expens[i] = rand.Next(1, 2) * 100;
                 profit[i] = income[i] - expens[i];
                 if (profit[i] > 0) goodProfit++;
 
@@ -87,7 +87,7 @@ namespace Homework_Theme_04
                     
                 }
                 //если несколько месяцев с одинаково плохой прибылью, то увеличиваем значение count
-                if (badprofit[j]==badprofit[j+1]) { count++;}               
+                if (badprofit[j]==badprofit[j+1] && count<11) { count++;}               
                
             }
             Console.ReadKey();
